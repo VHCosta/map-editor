@@ -7,15 +7,23 @@ public class Grid {
     private final int PADDING = 10;
     private final int CELL_SIZE = 20;
 
+    private int xSize;
+    private int ySize;
+
     private Rectangle outline;
 
-    public void createGrid(int x, int y){
+    public Grid(int xSize, int ySize){
+        this.xSize = xSize;
+        this.ySize = ySize;
+    }
 
-        outline = new Rectangle(PADDING, PADDING, x * CELL_SIZE, y * CELL_SIZE);
+    public void initGrid(){
+
+        outline = new Rectangle(PADDING, PADDING, xSize * CELL_SIZE, ySize * CELL_SIZE);
         outline.draw();
 
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < ySize; j++) {
 
                 Rectangle cell = new Rectangle(PADDING + CELL_SIZE * i, PADDING + CELL_SIZE * j, CELL_SIZE, CELL_SIZE);
                 cell.draw();
@@ -24,4 +32,11 @@ public class Grid {
         }
     }
 
+    public int getCellSize() {
+        return CELL_SIZE;
+    }
+
+    public int getPadding() {
+        return PADDING;
+    }
 }

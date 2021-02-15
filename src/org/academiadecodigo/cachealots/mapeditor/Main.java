@@ -4,10 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Grid grid = new Grid();
+        Editor editor = new Editor(20, 20);
 
-        grid.createGrid(20, 20);
-
+        editor.start();
+        
     }
 
 }
