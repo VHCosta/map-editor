@@ -21,9 +21,6 @@ public class Editor {
         mouseHandler = new EditorMouseHandler(grid);
         mouseHandler.mouseHandlerInit();
 
-
-
-
     }
 
     public void start() {
