@@ -6,14 +6,23 @@ public class Editor {
 
     private Grid grid;
     private Cursor cursor;
-    private EditorKeyboardHandler handler;
+    private EditorKeyboardHandler keyboardHandler;
+    private EditorMouseHandler mouseHandler;
+    private FileManager manager;
 
     public Editor(int x, int y) {
 
         grid = new Grid(x, y);
         cursor = new Cursor(grid);
-        handler = new EditorKeyboardHandler(grid, cursor);
-        handler.keyboardHandlerInit();
+        manager = new FileManager(grid);
+
+        keyboardHandler = new EditorKeyboardHandler(grid, cursor, manager);
+        keyboardHandler.keyboardHandlerInit();
+        mouseHandler = new EditorMouseHandler(grid);
+        mouseHandler.mouseHandlerInit();
+
+
+
 
     }
 
