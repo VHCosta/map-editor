@@ -39,4 +39,13 @@ public class Grid {
     public int getPadding() {
         return PADDING;
     }
+
+    public int getWidth(){
+        return outline.getWidth();
+    }
+
+    public int getHeight(){
+        return outline.getHeight();
+    }
+
 }

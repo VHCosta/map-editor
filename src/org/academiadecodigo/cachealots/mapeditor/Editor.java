@@ -6,17 +6,22 @@ public class Editor {
 
     private Grid grid;
     private Cursor cursor;
+    private EditorKeyboardHandler handler;
 
     public Editor(int x, int y) {
 
-        this.grid = new Grid(x, y);
-        this.cursor = new Cursor(grid);
+        grid = new Grid(x, y);
+        cursor = new Cursor(grid);
+        handler = new EditorKeyboardHandler(grid, cursor);
+        handler.keyboardHandlerInit();
+
     }
 
     public void start() {
 
         grid.initGrid();
         cursor.drawCursor();
+
     }
 
 }

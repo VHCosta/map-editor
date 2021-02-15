@@ -19,4 +19,7 @@ public class Cursor {
         cursor.fill();
     }
 
+    public Rectangle getCursor() {
+        return cursor;
+    }
 }
