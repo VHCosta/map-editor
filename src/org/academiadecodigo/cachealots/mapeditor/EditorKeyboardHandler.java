@@ -62,7 +62,7 @@ public class EditorKeyboardHandler implements KeyboardHandler {
                 int col = cursor.getCursor().getCol();
                 int row = cursor.getCursor().getRow();
 
-                Position cell = grid.getCellByPosition(col, row);
+                Cell cell = grid.getCellByPosition(col, row);
                 if(!cell.isFilled()) cell.fill();
                 else cell.unFill();
 

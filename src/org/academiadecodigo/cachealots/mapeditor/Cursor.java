@@ -2,13 +2,12 @@ package org.academiadecodigo.cachealots.mapeditor;
 
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Cursor {
 
     private Grid grid;
     //private Rectangle cursor;
-    private Position cursor;
+    private Cell cursor;
 
     public Cursor(Grid grid) {
         this.grid = grid;
@@ -16,12 +15,12 @@ public class Cursor {
 
     public void drawCursor(){
         //cursor = new Rectangle(grid.getCellSize() + grid.getPadding(), grid.getCellSize() + grid.getPadding(), grid.getCellSize(), grid.getCellSize());
-        cursor = new Position(1, 2, grid);
+        cursor = new Cell(1, 2, grid);
         cursor.setColor(Color.GREEN);
         cursor.fill();
     }
 
-    public Position getCursor() {
+    public Cell getCursor() {
         return cursor;
     }
 

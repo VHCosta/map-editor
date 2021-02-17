@@ -16,21 +16,20 @@ public class FileManager {
 
         try {
 
-            reader = new BufferedReader(new FileReader("savedContent"));
+            reader = new BufferedReader(new FileReader("map.txt"));
 
-            for (Position pos : grid.getCells()) {
 
-                String c = reader.readLine();
+            for (int i = 0; i < grid.getRows(); i++) {
+                for (int j = 0; j < grid.getCols(); j++) {
 
-                if(c.equals("1")) {
-                    System.out.println("reading 1");
-                    pos.fill();
+                    String line = reader.readLine();
 
-                } else {
-                    System.out.println("reading 0");
-                    pos.unFill();
+                    if (line.charAt(j) == 1){
+                        grid.getCells()[i][j].fill();
+                    } else {
+                        grid.getCells()[i][j].unFill();
+                    }
                 }
-
             }
 
             reader.close();
@@ -42,17 +41,20 @@ public class FileManager {
     public void saveContent() {
         try {
 
-            writer = new BufferedWriter(new FileWriter("savedContent"));
-            for (Position pos : grid.getCells()) {
+            writer = new BufferedWriter(new FileWriter("map.txt"));
 
-                if (pos.isFilled()) {
-                    writer.write("1\n");
-                    System.out.println("writing 1");
+            for (int i = 0; i < grid.getRows(); i++) {
+                for (int j = 0; j < grid.getCols(); j++) {
+
+                    if (grid.getCells()[i][j].isFilled()) {
+                        writer.write("1");
+                        System.out.println("writing 1");
+                    } else {
+                        writer.write("0");
+                        System.out.println("writing 0");
+                    }
                 }
-                else {
-                    writer.write("0\n");
-                    System.out.println("writing 0");
-                }
+                writer.write("\n");
             }
             writer.flush();
             writer.close();

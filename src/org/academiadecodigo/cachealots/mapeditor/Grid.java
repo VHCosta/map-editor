@@ -2,44 +2,70 @@ package org.academiadecodigo.cachealots.mapeditor;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-import java.io.*;
 import java.util.NoSuchElementException;
 
 public class Grid {
 
     private final int PADDING = 10;
-    private final int CELL_SIZE = 40;
+    private final int CELL_SIZE = 15;
 
-    private int xSize;
-    private int ySize;
-    private int positionIndex;
+    private int cols;
+    private int rows;
 
     private Rectangle outline;
-    private Position[] cells;
+    private Cell[][] cells;
 
-
-
-    private BufferedReader reader;
-    private BufferedWriter writer;
-
-    public Grid(int xSize, int ySize){
-        this.xSize = xSize;
-        this.ySize = ySize;
-
+    public Grid(int cols, int rows){
+        this.cols = cols;
+        this.rows = rows;
     }
 
     public void initGrid(){
 
-        outline = new Rectangle(PADDING, PADDING, xSize * CELL_SIZE, ySize * CELL_SIZE);
+        outline = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
         outline.draw();
-        cells = new Position[xSize * ySize];
+        cells = new Cell[cols][rows];
 
-        for (int i = 0; i < ySize; i++) {
-            for (int j = 0; j < xSize; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
 
-                cells[positionIndex] = new Position(i, j, this);
-                ++positionIndex;
+                cells[i][j] = new Cell(i, j, this);
 
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public Cell getCellByPosition(int col, int row) {
+       return cells[col][row];
+    }
+
+    public Cell getCellsByPixels(int x, int y){
+        for (Cell[] subArray : cells){
+            for (Cell cell : subArray) {
+
+                int minY = cell.getY()+getCellSize()/2;
+                int maxY = minY + cell.getHeight();
+                int minX = cell.getX();
+                int maxX = minX + cell.getWidth();
+
+                if(Math.max(minY, y) == Math.min(y, maxY) &&
+                        Math.max(minX, x) == Math.min(x, maxX))
+                        return cell;
+            }
+        }
+
+        throw new NoSuchElementException();
+
+    }
+
+    public void clearCells() {
+        for (Cell[] subArray : cells) {
+            for (Cell cell : subArray) {
+                cell.unFill();
             }
         }
     }
@@ -60,37 +86,13 @@ public class Grid {
         return outline.getHeight();
     }
 
-    public Position[] getCells() {
-        return cells;
+    public int getCols() {
+        return cols;
     }
 
-    public Position getCellByPosition(int col, int row) {
-        for (Position pos : cells) {
-            if (pos.getCol() == col && pos.getRow() == row) return pos;
-        }
-        throw new NoSuchElementException();
+    public int getRows() {
+        return rows;
     }
-
-    public Position getCellsByPixels(int x, int y){
-        for (Position pos : cells){
-            if (
-                    pos.getX() >= x && pos.getX() + pos.getWidth() < x &&
-                    pos.getY() >= y && pos.getY() + pos.getHeight() < y
-            ){
-               return pos;
-            }
-        }
-        throw new NoSuchElementException();
-    }
-
-    public void clearCells() {
-        for (Position pos : cells) {
-            pos.unFill();
-        }
-    }
-
-
-
 
 }
 

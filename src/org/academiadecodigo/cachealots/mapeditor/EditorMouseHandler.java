@@ -8,7 +8,7 @@ import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 public class EditorMouseHandler implements MouseHandler {
 
     private Mouse mouse;
-    private Grid grid;
+    private final Grid grid;
 
     public EditorMouseHandler(Grid grid) {
         this.grid = grid;
@@ -22,23 +22,21 @@ public class EditorMouseHandler implements MouseHandler {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
-        int mouseCol = (int) ((mouseEvent.getX() - grid.getPadding()) / grid.getCellSize());
-        int mouseRow = (int) ((mouseEvent.getY() + grid.getPadding()) / grid.getCellSize());
+        int padding = grid.getPadding();
+        int cellSize = grid.getCellSize();
+        int x = (int) mouseEvent.getX();
+        int y = (int) mouseEvent.getY();
 
-        for (Position pos : grid.getCells()) {
-            if(
-                    mouseEvent.getY() >= pos.getY() &&
-                    mouseEvent.getY() < pos.getY() + pos.getHeight() &&
-                    mouseEvent.getX() >= pos.getX() &&
-                    mouseEvent.getX() < pos.getX() + pos.getWidth()
-            ){
-                if(!pos.isFilled()) pos.fill();
-                else pos.unFill();
-            }
-        }
-        /*Position cell = grid.getCellsByPixels((int) mouseEvent.getX(), (int) mouseEvent.getY());
+        int mouseCol = (x - padding) / cellSize;
+        int mouseRow = (y - padding - cellSize) / cellSize;
+
+        //Cell cell = grid.getCellsByPixels(x, y);
+        Cell cell = grid.getCellByPosition(mouseCol, mouseRow);
+
         if(!cell.isFilled()) cell.fill();
-        else cell.unFill();*/
+        else cell.unFill();
+
+
 
     }
 

@@ -3,16 +3,16 @@ package org.academiadecodigo.cachealots.mapeditor;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-public class Position {
+public class Cell {
 
-    private int row;
     private int col;
+    private int row;
     private Grid grid;
     private Rectangle rect;
 
-    public Position(int row, int col, Grid grid) {
-        this.row = row;
+    public Cell(int col, int row, Grid grid) {
         this.col = col;
+        this.row = row;
         this.grid = grid;
         rect = new Rectangle(grid.getPadding() + grid.getCellSize() * col, grid.getPadding() + grid.getCellSize() * row, grid.getCellSize(), grid.getCellSize());
         rect.draw();
@@ -42,14 +42,6 @@ public class Position {
         return rect.getHeight();
     }
 
-    public int getCol() {
-        return col;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
     public void setColor(Color color){
         rect.setColor(color);
     }
@@ -60,15 +52,20 @@ public class Position {
         row += yDist;
     }
 
-    public void setCol(int col) {
-        this.col = col;
+    public int getCol() {
+        return col;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public int getRow() {
+        return row;
     }
 
     public boolean isFilled(){
         return rect.isFilled();
     }
+
+    public String toString(){
+        return isFilled() ? "1" : "0";
+    }
+
 }
